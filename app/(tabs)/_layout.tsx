@@ -1,9 +1,24 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { Tabs } from "expo-router";
+import React from "react";
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { TabBarIcon } from "@/components/navigation/TabBarIcon";
+import { Colors } from "@/constants/Colors";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { View } from "react-native";
+
+const TabbarTopLine = ({ color }: { color: string }) => {
+  return (
+    <View
+      style={{
+        width: "50%",
+        height: 2,
+        backgroundColor: color,
+        marginTop: -8,
+        marginBottom: 8,
+      }}
+    />
+  );
+};
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -11,24 +26,62 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         headerShown: false,
-      }}>
+      }}
+      initialRouteName="cards"
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: "Ana Sayfa",
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+            <>
+              {focused && (
+                <TabbarTopLine color={Colors[colorScheme ?? "light"].tint} />
+              )}
+              <TabBarIcon
+                name={focused ? "home" : "home-outline"}
+                color={color}
+                size={20}
+              />
+            </>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="cards"
+        options={{
+          title: "Kartlar",
+          tabBarIcon: ({ color, focused }) => (
+            <>
+              {focused && (
+                <TabbarTopLine color={Colors[colorScheme ?? "light"].tint} />
+              )}
+              <TabBarIcon
+                name={focused ? "card" : "card-outline"}
+                color={color}
+                size={20}
+              />
+            </>
           ),
         }}
       />
       <Tabs.Screen
         name="explore"
         options={{
-          title: 'Explore',
+          title: "Profile",
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+            <>
+              {focused && (
+                <TabbarTopLine color={Colors[colorScheme ?? "light"].tint} />
+              )}
+              <TabBarIcon
+                name={focused ? "person" : "person-outline"}
+                color={color}
+                size={20}
+              />
+            </>
           ),
         }}
       />
